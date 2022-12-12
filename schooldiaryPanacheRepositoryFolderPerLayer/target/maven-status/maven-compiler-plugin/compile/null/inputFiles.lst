@@ -1,0 +1,12 @@
+C:\SVILEN\QUARKUS\SchoolDiary\schooldiaryPosgres\src\main\java\com\vida\repository\KlasRepository.java
+C:\SVILEN\QUARKUS\SchoolDiary\schooldiaryPosgres\src\main\java\com\vida\service\KlasService.java
+C:\SVILEN\QUARKUS\SchoolDiary\schooldiaryPosgres\src\main\java\com\vida\model\bind\KlasBindingModel.java
+C:\SVILEN\QUARKUS\SchoolDiary\schooldiaryPosgres\src\main\java\com\vida\model\entity\Student.java
+C:\SVILEN\QUARKUS\SchoolDiary\schooldiaryPosgres\src\main\java\com\vida\webrest\KlasRestResource.java
+C:\SVILEN\QUARKUS\SchoolDiary\schooldiaryPosgres\src\main\java\com\vida\model\bind\StudentBindingModel.java
+C:\SVILEN\QUARKUS\SchoolDiary\schooldiaryPosgres\src\main\java\com\vida\webrest\StudentRestResource.java
+C:\SVILEN\QUARKUS\SchoolDiary\schooldiaryPosgres\src\main\java\com\vida\repository\StudentRepository.java
+C:\SVILEN\QUARKUS\SchoolDiary\schooldiaryPosgres\src\main\java\com\vida\service\StudentService.java
+C:\SVILEN\QUARKUS\SchoolDiary\schooldiaryPosgres\src\main\java\com\vida\init\DataLoader.java
+C:\SVILEN\QUARKUS\SchoolDiary\schooldiaryPosgres\src\main\java\com\vida\model\enums\KlasLetterEnum.java
+C:\SVILEN\QUARKUS\SchoolDiary\schooldiaryPosgres\src\main\java\com\vida\model\entity\Klas.java

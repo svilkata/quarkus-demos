@@ -1,0 +1,55 @@
+-- This file allow to write SQL commands that will be emitted in test and dev.
+-- The commands are commented as their support depends of the database
+-- insert into myentity (id, field) values(nextval('hibernate_sequence'), 'field-1');
+-- insert into myentity (id, field) values(nextval('hibernate_sequence'), 'field-2');
+-- insert into myentity (id, field) values(nextval('hibernate_sequence'), 'field-3');
+
+-- insert into klasses (klas_number, klas_letter)
+-- values (1, 'A'),
+--        (1, 'B'),
+--        (1, 'C'),
+--        (1, 'D'),
+--        (2, 'A'),
+--        (2, 'B'),
+--        (2, 'C'),
+--        (2, 'D');
+--
+-- insert into students (first_name, last_name, egn, klas_id)
+-- values ('Svilen', 'Velikov', '6666666660', 1),
+--        ('Georgi', 'Georgiev', '6666666661', 1),
+--        ('Vassil', 'Levski', 'vvvvvvvvvv', 1),
+--        ('Boiko', 'Borisov', 'bbbbbbbbbb', 1),
+--        ('Zahari', 'Stoyanov', 'zzzzzzzzzz', 1),
+--        ('Kiril', 'Petkov', 'kkkkkkkkkk', 1),
+--        ('Gospodin', 'Gospodinov', 'gggggggggg', 1),
+--        ('Petar', 'Petrov', 'pppppppppp', 2),
+--        ('Dimitar', 'Dimitrov', '1111111112', 3);
+--
+-- insert into teachers (first_name, last_name, egn)
+-- values ('Gabriela', 'Gabrielova', '9205386678'),
+--        ('Dobromir', 'Dobromirov', '9200000000'),
+--        ('Todor', 'Todorov', '9292888888'),
+--        ('Mariela', 'Marielova', '9200920092');
+--
+--
+-- insert into subjects (subject)
+-- values ('Math'),
+--        ('Literature'),
+--        ('Biology'),
+--        ('Geography'),
+--        ('History'),
+--        ('Sport');
+--
+-- insert into assignments (subject_id, klas_id, teacher_id)
+-- values (1, 1, 1),
+--        (1, 2, 1),
+--        (1, 3, 2),
+--        (1, 4, 2),
+--        (3, 1, 3),
+--        (3, 2, 3),
+--        (4, 1, 4),
+--        (4, 1, 4),
+--        (4, 2, 4),
+--        (2, 1, 1);
+
+

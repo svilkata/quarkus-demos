@@ -1,0 +1,2 @@
+# PanacheRepository demo with organization layer per folder (the SofUni model of organization folders).
+# I.e. repository layer in repository folder, service layer in service folder, web layer in web folder
