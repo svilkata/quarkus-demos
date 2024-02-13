@@ -31,7 +31,8 @@ Currently, there are 2 project constraints:
 
 
 ## Plan for endpoints:
-* I) Clazz
+I) Clazz
+
 method createClazz  
 post url: /clazz – adding/creating a new klas  
 input json body: {clazzNumber, subclazzInitial}  
@@ -68,7 +69,8 @@ input json body: no
 output json body: not needed, we just return status 204 No content
 
 
-* II) Student
+II) Student
+
 method createStudent  
 post url: /student – create/add a new student  
 input json body: {firstName, lastName, identity}  
@@ -87,7 +89,8 @@ output json body: {studentId, firstName, lastName, identity, clazz}
 When a student do not belong to any klas yet, then clazz is null and JSON-B does not show it 
 
 
-* III) Teacher 
+III) Teacher 
+
 method createTeacher  
 post url: /teacher - creates a new teacher in the school  
 input json body: {firstName, lastName, identity}  
@@ -124,7 +127,8 @@ input json body: no
 output json body: Array of {subjectId, name} objects
 
 
-* IV) Subject
+IV) Subject
+
 method createSubject  
 post url: /subject – creates a new school subject  
 input json body: {name}  
@@ -141,7 +145,8 @@ input json body: no
 output json body: {subjectId, name}  
 
 
-* V) Grade
+V) Grade
+
 method teacherWritesGradePerStudentPerSubject
 post url: /grade?studentId={studentId}&subjectId={subjectId}&teacherId={teacherId} – create a grade record - about a teacher putting a grade to a student on a school subject  
 input json body: {grade}  
@@ -153,7 +158,8 @@ input json body: no
 output json body: Array of {gradeId, grade, timeAdded, teacherFullName} objects  
 
 
-* VI) Absence
+VI) Absence
+
 method teacherWritesAbsencePerStudentPerSubject
 post url: /absence?studentId={studentId}&subjectId={subjectId}&teacherId={teacherId} – it creates record for absence mark a teacher put for a student on a school subject  
 input json body: {absenceHours}  

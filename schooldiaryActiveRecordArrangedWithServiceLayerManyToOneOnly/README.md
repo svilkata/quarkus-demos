@@ -31,6 +31,7 @@ Using only Many-To-One relation
 ## A plan for the endpoints:
 
 I) Klas
+
 method getAllKlasses
 get url: /klas – returns all klasses  
 input json body: no  
@@ -63,6 +64,7 @@ output json body: {studentId, firstName, lastName, egn, klasId, klasName}
 
 
 II) Student
+
 method getAllStudents
 get url: /student – връща всички студенти  
 input json body: no
@@ -87,6 +89,7 @@ output json body: {studentId, firstName, lastName, egn, klasId, klasName}
 
 
 III) Subject
+
 method getAllSubjects
 get url: /subject – returns all school subjects  
 input json body: no
@@ -104,6 +107,7 @@ output json body: Array of {subjectId, subject string} objects
 
 
 IV) Teacher
+
 method getAllTeachers
 get url: /teacher – returns all teachers  
 input json body: no
@@ -141,6 +145,7 @@ output json body: Array of {subjectId, subject string} objects
 
 
 V) Assignment
+
 method assignSubjectAndKlasPerTeacher
 post url: /teacher – assigns a teacher to teach in that klas on that school subject  
 input json body: {teacherId, subjectId, klasId}  
@@ -148,6 +153,7 @@ output json body: {assignmentId, teacherId, firstName, lastName, egn}
 
 
 VI) Mark
+
 method getAllMarksPerStudentPerSubject
 get url: /mark/{studentId}/{subjectId} – returns all student's marks per subject for a student (sorted ascending by timeAdded) - may have marks on same subject from different teachers  
 input json body: no     
@@ -160,6 +166,7 @@ output json body: {markId, mark int, timeAdded, teacherId, teacherFullName}
 
 
 VII) Absence
+
 method getAllAbsencesPerStudentPerSubject
 get url: /absence/{studentId}/{subjectId} – returns all student's absences per subject for a student (sorted ascending by timeAdded) - may have absences on same subject from different teachers  
 input json body: no  
