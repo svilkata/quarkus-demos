@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-222.3739.54">
+  <component name="dataSourceStorageLocal" created-in="IU-233.13135.103">
     <data-source name="schooldiaryDB@localhost" uuid="46677ad2-eaa4-4f84-8941-c9dd6e85ff5f">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="POSTGRES" exact-version="0" />
       <secret-storage>master_key</secret-storage>

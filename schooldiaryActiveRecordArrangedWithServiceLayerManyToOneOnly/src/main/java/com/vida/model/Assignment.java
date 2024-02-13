@@ -1,12 +1,13 @@
 package com.vida.model;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import java.util.List;
 
 /*
-Всеки обект от клас Subject пази информация за съответния учебен предмет - но учебен предмет за конкретен клас и с конкретен учител!
+Each object Assignment keeps info about the relevant school subject - but school subject for a concrete klas and with concrete teacher!
 * */
 
 @Entity
@@ -26,11 +27,9 @@ public class Assignment extends AbstractEntity {
     @ManyToOne
     private Subject subject;
 
-    //различни учебни предмети може да се преподават на един и същи клас, а даден конкретен SubjectEnum се преподава точно с този преподавател
     @ManyToOne
     private Klas klas;
 
-    //различни учебни предмети може да се преподават от един и същи учител, или конкретен учител за този предмет за този клас
     @ManyToOne
     private Teacher teacher;
 

@@ -68,7 +68,7 @@ public class MarkRestResource {
         // In case, new teacher comes to teach permanently or temporary klas 1A on the same object math
         List<Assignment> assignmentsForSubjectAndKlasOfStudent = assignmentService.getAssignmentsForSubjectAndKlasOfStudent(subject, klas);
         if (assignmentsForSubjectAndKlasOfStudent.isEmpty()) {
-            jsonBuilder.add("Assignment", String.format("There is still no such assignment for subject %s and klas %s", subject, klas));
+            jsonBuilder.add("Assignment", String.format("There is still no teacher assigned for subject %s and klas %s", subject, klas));
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(jsonBuilder.build())
                     .build();

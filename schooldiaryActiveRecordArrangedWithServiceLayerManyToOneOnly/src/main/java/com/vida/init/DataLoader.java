@@ -3,12 +3,18 @@ package com.vida.init;
 import com.vida.absence.AbsenceService;
 import com.vida.assignment.AssignmentService;
 import com.vida.klas.KlasService;
-import com.vida.model.*;
+import com.vida.mark.MarksService;
+import com.vida.model.Absence;
+import com.vida.model.Assignment;
+import com.vida.model.Klas;
+import com.vida.model.Mark;
+import com.vida.model.Student;
+import com.vida.model.Subject;
+import com.vida.model.Teacher;
 import com.vida.model.enums.AbsenceTypeEnum;
 import com.vida.model.enums.KlasLetterEnum;
 import com.vida.student.StudentService;
 import com.vida.subject.SubjectService;
-import com.vida.mark.MarksService;
 import com.vida.teacher.TeacherService;
 import io.quarkus.runtime.Startup;
 
@@ -16,7 +22,6 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import java.util.List;
 
 
 @ApplicationScoped
@@ -37,7 +42,7 @@ public class DataLoader {
     @Inject
     AbsenceService absenceService;
 
-//    @PostConstruct
+    @PostConstruct
     @Transactional
     public void initSomeData() {
         //Create and save klasses 1A, 1B, 1C and 1D in the database

@@ -21,7 +21,6 @@ public class Absence extends AbstractEntity {
     @ManyToOne
     public Teacher teacher;
 
-    //брой часове отсъствия, които учителя отбелязва
     @Column(name = "absence_hours", nullable = false)
     public Integer absenceHours;
 

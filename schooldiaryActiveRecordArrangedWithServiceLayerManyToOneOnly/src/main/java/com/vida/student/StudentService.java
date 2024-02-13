@@ -5,7 +5,6 @@ import com.vida.model.Student;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.transaction.Transactional;
 import java.util.List;

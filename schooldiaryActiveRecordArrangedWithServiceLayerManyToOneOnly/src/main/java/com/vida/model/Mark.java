@@ -1,21 +1,22 @@
 package com.vida.model;
 
-import javax.persistence.*;
-import java.time.LocalDate;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "marks")
 public class Mark extends AbstractEntity {
-    //На кой студент
+    //to which student
     @ManyToOne
     private Student student;
 
-    //По кой assignment/предмет с учител с клас/
+    //from which assignment /school subject with concrete teacher and concrete klas/
     @ManyToOne
     private Assignment assignment;
 
-    //Оценка
     @Column(nullable = false)
     private Integer mark;
     @Column(name = "time_added", nullable = false)

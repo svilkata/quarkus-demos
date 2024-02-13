@@ -1,172 +1,165 @@
-##  School Dnevnik 
+#  School Diary - ActiveRecord Multy ManyToMany relations
 
 
 ##  Description  
-Dnevnik project with ActiveRecord of Panache implemented.  
-Folders organized per object, i.e. object Student has a folder student with all the layers like  StudentResource, StudentDTO, etc.  
-Implemented without Service layer!!!  
-Used ManyToMany bidirectional relations implemented with Set<...>  in the relational database.
-
+* School Diary project with ActiveRecord of Panache implemented.  
+* Folders organized per object, i.e. object Student has a folder student with all the layers like  StudentResource, StudentDTO, etc.  
+* Implemented without Service layer!!!  
+* Used ManyToMany bidirectional relations implemented with Set<...>  in the relational database.
 
 
 ## Schema
 ![img.png](img.png)
 
 
-## Plan for endpoints:  
-В момента има следните 2 ограничения на проекта:  
-** Един ученик не може да се мести от един клас в друг клас.  
+## RestAssured integration testing:
+We should remove the (@Observes StartupEvent ev) from the initSomeData method in the DataLoader class, before starting the tests
+
+
+## Project constraints:
+Currently, there are 2 project constraints:  
+* One student can **not** move from one class to another (i.e. from klas 3A into klas 3B for example).  
   
-** Възможност да се получат нежелани назначения
-* t1 и t2 преподават по biol, music и history.  
-* t1 и t2 преподават на 6А клас.  
-* На 6A се преподава  biol, music и history.  
-* В случая t1 може да преподава biol и music на 6A, a t2 да преподава history на 6A. А може и да е обратното  
-* Проблемът е, че изрично не сме дефинирали, че учителите имат право да си разменят предметите - и когато правим проверка за писане на оценки например, ще е възможно учител t1 да пише оценки и по два предмета, а да има реално право да пише оценки само по един от трите предмета  
-* Затова можем да използваме още една допълнителна таблица Assignments с три ключа (ManyToOne релации към Clazz, Subject и Teacher) - както е направено в предходния проект 
+* Possibility for undesired assignments:
+  * teachers t1 and t2 teach for example the following subjects: biol, music and history.  
+  * teachers t1 and t2 teach in klas 6A.  
+  * I.e. klas 6A is being taught on biol, music and history.  
+  * Let's take a look on this scenario: teacher t1 is allowed to teach biol and music in 6A, and teacher t2 is only allowed to teach history in 6A.  
+  * The problem is that we have not explicitly defined that teachers can change the subjects taught in klas 6A - and when we make a check about the marks teachers assessed students with, it would be possible teacher t2 to put marks not only on subject history (allowed), but also on subjects biol and music (not allowed). 
+  * Therefore, we can create one more table Assignments with 3 keys (ManyToOne relations to Clazz, Subject and Teacher) - as done in the previous project **Schooldiary Project - ActiveRecord ManyToOne relations** 
 
 
 
-
-* I) clazz
-
+## Plan for endpoints:
+* I) Clazz
 method createClazz  
-post на /clazz – добавяне нов клас  
-вход json: {clazzNumber, subclazzInitial}  
-изход json: няма, връща статус 201 Created  
+post url: /clazz – adding/creating a new klas  
+input json body: {clazzNumber, subclazzInitial}  
+output json body: not needed, we just return status 201 Created  
 
-method getAllClazzes  
-get на /clazz – връща всички класове  
-вход json: няма  
-изход json: масив от {clazzId, clazzNumber, subclazzInitial}  
+method getAllClazzes
+get url: /clazz - return all school klasses  
+input json body: no  
+output json body: Array of {clazzId, clazzNumber, subclazzInitial} objects  
 
 method getClazzByName  
-get на /clazz/name/{clazzName} – взема по име на клас данни за класа  
-вход json: няма  
-изход json: {clazzId, clazzNumber, subclazzInitial}  
+get url: /clazz/name/{clazzName} – from 1A path param, we return data about klas 1A
+input json body: няма  
+output json body: {clazzId, clazzNumber, subclazzInitial}  
 
 method addStudentToClazz  
-patch на /clazz/{clazzId}/student?studentId={studentId} – добавя ученик към клас  
-вход json: няма  
-изход json: няма, връща статус 204 No content  
+patch url: /clazz/{clazzId}/student?studentId={studentId} – add student to a klas
+input json body: no  
+output json body: not needed, we just return status 204 No content  
 
-method getClazzesByTeacher  
-get на /clazz/teacher/{teacherId} – взема всички класове, на които даден учител преподава  
-вход json: няма  
-изход json: масив от {clazzId, clazzNumber, subclazzInitial}  
+method getClazzesByTeacher
+get url: /clazz/teacher/{teacherId} – takes all klasses a given teacher teaches to  
+input json body: no  
+output json body: Array of {clazzId, clazzNumber, subclazzInitial} objects  
 
 method assignSubjectToClazzAllowed  
-patch на /clazz/{clazzId}/allowedsubjects?subjectId={subjectId} – определя/задава какъв предмет може(е позволено) да се преподва на даден клас  
-вход json: няма  
-изход json: няма, връща статус 204 No content  
+patch url: /clazz/{clazzId}/allowedsubjects?subjectId={subjectId} – defines what subject a klas is allowed to be taught on  
+input json body: no  
+output json body: not needed, we just return status 204 No content
 
 method assignTeacherToClazzAndSubject  
-patch на /clazz/{clazzId}/assign?teacherId={teacherId}&subjectId={subjectId} – назначава на даден клас даден учител по даден предмет, ако учебния предмет е одобрен за преподаване за този клас  
-вход json: няма  
-изход json: няма, връща статус 204 No content  
+patch url: /clazz/{clazzId}/assign?teacherId={teacherId}&subjectId={subjectId} – assigns a teacher to a klas only if klas is allowed to be taught that subject  
+input json body: no  
+output json body: not needed, we just return status 204 No content
 
 
-* II) student
-
+* II) Student
 method createStudent  
-post на /student – добавя нов ученик  
-вход json: {firstName, lastName, identity}  
-изход json: няма, връща статус 201 Created  
+post url: /student – create/add a new student  
+input json body: {firstName, lastName, identity}  
+output json body: no, but we return status 201 Created  
 
 method getAllStudents  
-get на /student – връща всички студенти  
-вход json: няма  
-изход json: масив от {studentId, firstName, lastName, identity, clazz}  
-Когато няма зададен клас на ученика, то clazz e null и не се показва от JSON-B  
+get url: /student – returns all students  
+input json body: no  
+output json body: Array of {studentId, firstName, lastName, identity, clazz} objects 
+When a student do not belong to any klas yet, then clazz is null and JSON-B does not show it  
 
 method getStudentByIdentity  
-get на /student/identity/{identity} – връща студент по identity  
-вход json: няма  
-изход json: {studentId, firstName, lastName, identity, clazz}  
-Когато няма зададен клас на ученика, то clazz e null и не се показва от JSON-B  
+get url: /student/identity/{identity} – returns a student by identity  
+input json body: няма  
+output json body: {studentId, firstName, lastName, identity, clazz}  
+When a student do not belong to any klas yet, then clazz is null and JSON-B does not show it 
 
 
-* III) teacher 
-
+* III) Teacher 
 method createTeacher  
-post на /teacher – записва нов учител  
-вход json: {firstName, lastName, identity}  
-изход json: няма, връща статус 201 Created  
+post url: /teacher - creates a new teacher in the school  
+input json body: {firstName, lastName, identity}  
+output json body: no, we return status 201 Created  
 
 method getAllTeachers  
-get на /teacher – връща всички учители  
-вход json: няма  
-изход json: масив от {teacherId, firstName, lastName, identity}  
+get url: /teacher – returns all teachers from that school  
+input json body: no  
+output json body: Array of {teacherId, firstName, lastName, identity} objects
 
 method getTeacherByIdentity  
-get на /teacher/identity/{identity} – връща учител по identity  
-вход json: няма  
-изход json: {teacherId, firstName, lastName, identity}  
+get url: /teacher/identity/{identity} – returns a teacher by identity
+input json body: no
+output json body: {teacherId, firstName, lastName, identity}  
 
 method getClazzesOfATeacher  
-get на /teacher/{teacherId}/klazzes – връща всички класове, на които учителя преподава  
-вход json: няма  
-изход json: масив от {clazzId, clazzNumber, subclazzInitial}  
+get url: /teacher/{teacherId}/klazzes – returns all klasses that teacher teaches  
+input json body: no  
+output json body: Array of {clazzId, clazzNumber, subclazzInitial} objects 
 
 method getSubjectsOfATeacher  
-get на /teacher/{teacherId}/subjects – връща всички учебни предмети, по които учителя преподава  
-вход json: няма  
-изход json: масив от {subjectId, name}  
+get url: /teacher/{teacherId}/subjects – returns all subjects a teacher teaches at  
+input json body: no  
+output json body: Array of {subjectId, name} objects
 
 method getClazzesByTeacherAndSubject  
-get на /teacher/{teacherId}/clazzes/{subjectId} – връща всички класове, на които учителя преподава по даден предмет  
-вход json: няма  
-изход json: масив от {klasId, klasNumber, klasLetter}  
+get url: /teacher/{teacherId}/clazzes/{subjectId} – returns all klasses a teacher teaches at on a specific subject  
+input json body: no
+output json body: Array of {klasId, klasNumber, klasLetter} objects
 
 method getSubjectsByTeacherAndClazz  
-get на /teacher/{teacherId}/subjects/{clazzId} – връща всички учебни предмети, по които учителя преподава на даден клас  
-вход json: няма  
-изход json: масив от {subjectId, name}  
+get url: /teacher/{teacherId}/subjects/{clazzId} – return all subjects a teacher teaches at a given klas  
+input json body: no
+output json body: Array of {subjectId, name} objects
 
 
-* IV) subject
-
+* IV) Subject
 method createSubject  
-post на /subject – записва нов учебен предмет  
-вход json: {name}  
-изход json: няма, връща статус 201 Created  
+post url: /subject – creates a new school subject  
+input json body: {name}  
+output json body: no, we return status 201 Created  
 
 method getAllSubjects  
-get на /subject – връща всички учебни предмети  
-вход json: няма  
-изход json: масив от {subjectId, name}  
+get url: /subject – returns all school subjects  
+input json body: no
+output json body: Array of {subjectId, name} objects  
 
 method getSubjectByName  
-get на /subject/name/{name} – търси по име и връща конкретен учебен предмет  
-вход json: няма  
-изход json: {subjectId, name}  
+get url: /subject/name/{name} – търси по име и връща конкретен учебен предмет  
+input json body: no
+output json body: {subjectId, name}  
 
 
-* V) grade
-
+* V) Grade
 method teacherWritesGradePerStudentPerSubject
-post на /grade?studentId={studentId}&subjectId={subjectId}&teacherId={teacherId} – прави запис за поставяне на оценка от учител на ученик по даден предмет  
-вход json: {grade}  
-изход json: {gradeId, grade, timeAdded, teacherFullName} и също така връща 201 Created и URL
+post url: /grade?studentId={studentId}&subjectId={subjectId}&teacherId={teacherId} – create a grade record - about a teacher putting a grade to a student on a school subject  
+input json body: {grade}  
+output json body: {gradeId, grade, timeAdded, teacherFullName} body together with response status 201 Created and URL of the created grade
 
 method getAllGradesPerStudentPerSubject
-get на /grade?studentId={studentId}&subjectId={subjectId} – връща всички оценки сортирани по дата и час на въвеждане възходящо на даден ученик по даден предмет (може и от различни учители да са оценките ако има няколко учителя назначени да преподват в даден клас по един и същи предмет)  
-вход json: няма  
-изход json: масив от {gradeId, grade, timeAdded, teacherFullName}  
+get url: /grade?studentId={studentId}&subjectId={subjectId} – returns all grades (sorted ascending by timeAdded) of a student on a subject (possibility different teachers to have put the grades if several teachers teach in that klas for one and the same relevant subject)  
+input json body: no  
+output json body: Array of {gradeId, grade, timeAdded, teacherFullName} objects  
 
 
-* VI) absence
-
+* VI) Absence
 method teacherWritesAbsencePerStudentPerSubject
-post на /absence?studentId={studentId}&subjectId={subjectId}&teacherId={teacherId} – прави запис за поставяне на отсъствие от учител на ученик по даден предмет  
-вход json: {absenceHours}  
-изход json: {absenceId, absenceHours, timeAdded, teacherFullName} и също така връща 201 Created и URL
+post url: /absence?studentId={studentId}&subjectId={subjectId}&teacherId={teacherId} – it creates record for absence mark a teacher put for a student on a school subject  
+input json body: {absenceHours}  
+output json body: {absenceId, absenceHours, timeAdded, teacherFullName} body together with response status 201 Created and URL of the created grade
 
 method getAllAbsenceRecordsPerStudentPerSubject
-get на /absence?studentId={studentId}&subjectId={subjectId} – връща всички записи за отсъствия на даден ученик по даден предмет (може и от различни учители да са отсъствията ако има няколко учителя назначени да преподват в даден клас по един и същи предмет)  
-вход json: няма  
-изход json: масив от {absenceId, absenceHours, timeAdded, teacherFullName}  
-
-## RestAssured integration testing:  
-
-We should remove the (@Observes StartupEvent ev) from the initSomeData method in the DataLoader class, before starting the tests
+get url: /absence?studentId={studentId}&subjectId={subjectId} - returns all absence marks of a student on a subject (possibility different teachers to have put the absence marks if several teachers teach in that klas for one and the same relevant subject)  
+input json body: no  
+output json body: Array of {absenceId, absenceHours, timeAdded, teacherFullName} objects

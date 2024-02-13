@@ -1,7 +1,6 @@
 package com.vidasoft.diary.init;
 
 import com.vidasoft.diary.model.*;
-import io.quarkus.runtime.StartupEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +10,6 @@ import javax.transaction.Transactional;
 import java.util.Locale;
 import java.util.Set;
 
-//@Startup
 @ApplicationScoped
 public class DataLoader {
     Logger LOGGER = LoggerFactory.getLogger(DataLoader.class);

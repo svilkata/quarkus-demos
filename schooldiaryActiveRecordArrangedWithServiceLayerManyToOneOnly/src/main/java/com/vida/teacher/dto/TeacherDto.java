@@ -1,12 +1,7 @@
 package com.vida.teacher.dto;
 
-import com.vida.klas.dto.KlasDto;
-import com.vida.subject.dto.SubjectDto;
-
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 public class TeacherDto {
     private Long id;

@@ -1,11 +1,18 @@
 package com.vidasoft.diary.model;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import java.util.LinkedHashSet;
-import java.util.Objects;
 import java.util.Set;
 
-import static com.vidasoft.diary.model.Clazz.*;
+import static com.vidasoft.diary.model.Clazz.GET_CLAZZES_BY_TEACHER;
+import static com.vidasoft.diary.model.Clazz.GET_CLAZZES_BY_TEACHER_AND_SUBJECT;
 
 @Entity
 @Table(name = "clazzes")
@@ -25,8 +32,7 @@ public class Clazz extends AbstractEntity {
     public Set<Subject> subjects = new LinkedHashSet<>();
 
 
-    //!!! Където декларираме така, оттам merge-ваме добавяме елементи, или с други думи:
-    //добавяме на clazz teacher-и
+    //!!! Where we declare like below, from there we merge/persist elements. In other words - we can add to a clazz some teachers and teachers will be persisted as well!
     //FRONT_SIDE of the BIDIRECTIONAL clazzes <-> teachers
     @ManyToMany(cascade = {
             CascadeType.PERSIST,

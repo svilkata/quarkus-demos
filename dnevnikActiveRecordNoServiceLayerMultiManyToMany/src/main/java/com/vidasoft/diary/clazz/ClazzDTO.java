@@ -3,8 +3,6 @@ package com.vidasoft.diary.clazz;
 import com.vidasoft.diary.model.Clazz;
 import com.vidasoft.diary.validation.UniqueClazzName;
 
-import javax.json.bind.annotation.JsonbTransient;
-import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;

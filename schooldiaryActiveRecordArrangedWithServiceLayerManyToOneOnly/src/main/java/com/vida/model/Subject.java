@@ -1,8 +1,8 @@
 package com.vida.model;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "subjects")

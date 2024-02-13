@@ -12,12 +12,19 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.PATCH;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -43,7 +50,7 @@ public class ClazzResource {
         Clazz clazz = clazzDTO.toClazz();
         clazz.persist();
 
-        //тук не връщаме body - реално като сме поствали сме знаели какво създаваме и няма смисъл да го връщаме
+        //here we do not return a body, but just a status 201 - when we post we know what we create, so no sense to return (same) body
         return Response.created(URI.create(String.format("/%s/%d", CLAZZ_RESOURCE_PATH, clazz.id))).build();
     }
 
@@ -86,7 +93,6 @@ public class ClazzResource {
         Clazz clazz = Clazz.findById(clazzId);
         Student student = Student.findById(studentId);
 
-        //В Transactional минава през всичко - затова използваме if-else
         if (clazz == null || student == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         } else if (student.clazz != null) {
@@ -151,13 +157,13 @@ public class ClazzResource {
         if (clazz == null || teacher == null || subject == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         } else {
-            //интегритет кой клас какви учебни предмети изобщо учи
+            //integrity - which klas what subjects studies at all
             if (clazz.subjects.contains(subject)) {
-                //subject.getClazzes().add(clazz);//!!!!тази проверка/запис не е необходима заради горния if!!!
+                //subject.getClazzes().add(clazz);//!!! this add record not needed thanks to the if above!!!
 
                 //if below 2 relations exist in the db, we do not inform the user for a conflict, and also no new record is added in the below 2 intermediate tables
                 clazz.teachers.add(teacher); //add if absent such relation
-                subject.teachers.add(teacher);//add if absent such relation
+                subject.teachers.add(teacher); //add if absent such relation
 
                 return Response.status(Response.Status.NO_CONTENT).build();
             } else {

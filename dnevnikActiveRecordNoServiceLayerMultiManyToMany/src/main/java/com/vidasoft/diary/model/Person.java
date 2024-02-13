@@ -3,7 +3,6 @@ package com.vidasoft.diary.model;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
-import java.util.Objects;
 
 @MappedSuperclass
 public abstract class Person extends AbstractEntity {

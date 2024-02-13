@@ -7,7 +7,15 @@ import javax.enterprise.context.RequestScoped;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
+import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
@@ -50,6 +58,6 @@ public class SubjectResource {
         return Subject.<Subject>find("name", subjectName)
                 .firstResultOptional()
                 .map(SubjectDTO::new)
-                .orElseThrow(() -> new NotFoundException()); //super
+                .orElseThrow(() -> new NotFoundException());
     }
 }

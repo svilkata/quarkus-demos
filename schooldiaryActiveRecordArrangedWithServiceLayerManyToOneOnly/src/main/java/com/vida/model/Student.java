@@ -1,9 +1,9 @@
 package com.vida.model;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-
-import javax.persistence.*;
-import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import java.util.Optional;
 
 @Entity

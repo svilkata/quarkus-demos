@@ -11,15 +11,15 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "absences")
 public class Absence extends AbstractEntity {
-    //На кой студент
+    //To which student
     @ManyToOne
     private Student student;
 
-    //По кой assignment/предмет с учител с клас/
+    //To which assignment /school subject with teacher and a klas/
     @ManyToOne
     private Assignment assignment;
 
-    //брой часове отсъствия, които учителя отбелязва
+    //count of school absence hours that teacher puts
     @Column(name = "number_of_hours", nullable = false)
     private Integer countHours;
     @Column(name = "type_of_absence", nullable = false)

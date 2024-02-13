@@ -1,9 +1,7 @@
 package com.vida.absence;
 
-import com.vida.assignment.AssignmentService;
 import com.vida.model.Absence;
 import com.vida.model.Assignment;
-import com.vida.model.Mark;
 import com.vida.model.Student;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

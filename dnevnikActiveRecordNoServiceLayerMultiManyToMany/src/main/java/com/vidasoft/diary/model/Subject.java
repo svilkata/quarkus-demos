@@ -1,11 +1,20 @@
 package com.vidasoft.diary.model;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import static com.vidasoft.diary.model.Subject.*;
+import static com.vidasoft.diary.model.Subject.GET_SUBJECTS_BY_TEACHER;
+import static com.vidasoft.diary.model.Subject.GET_SUBJECTS_BY_TEACHER_AND_CLAZZ;
+import static com.vidasoft.diary.model.Subject.GET_SUBJECT_BY_SUBJECT_AND_TEACHER_AND_CLAZZ;
 
 
 @Entity
@@ -27,8 +36,7 @@ public class Subject extends AbstractEntity {
     @Column(name = "subject_name", unique = true, nullable = false)
     public String name;
 
-    //!!! Мerge-ваме добавяме елементи отттук, или с други думи:
-    //добавяме на subject нови teachers
+    //!!! Where we declare like below, from there we merge/persist elements. I.e. we can add to a subject some teachers and teachers will be persisted as well
     //FRONT_SIDE of the BIDIRECTIONAL subjects <-> teachers
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
@@ -41,8 +49,7 @@ public class Subject extends AbstractEntity {
     public Set<Teacher> teachers = new LinkedHashSet<>();
 
 
-    //!!! Мerge-ваме добавяме елементи отттук, или с други думи:
-    //добавяме на subject нови clazzes
+    //!!! Where we declare like below, from there we merge/persist elements. I.e. we can add to a subject some klazzes and klazzes will be persisted as well
     //FRONT_SIDE of the BIDIRECTIONAL subjects <-> clazzes
     @ManyToMany(cascade = {
             CascadeType.PERSIST,

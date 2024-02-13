@@ -1,9 +1,6 @@
 package com.vida.student;
 
-import com.vida.model.Student;
-import com.vida.student.dto.StudentDto;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 //@Dependent
 @Mapper(componentModel = "cdi")

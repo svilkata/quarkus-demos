@@ -1,9 +1,13 @@
 package com.vida.model;
 
 import com.vida.model.enums.KlasLetterEnum;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;

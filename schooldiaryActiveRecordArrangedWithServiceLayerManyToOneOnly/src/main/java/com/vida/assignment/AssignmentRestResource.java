@@ -9,14 +9,16 @@ import com.vida.model.Teacher;
 import com.vida.subject.SubjectService;
 import com.vida.teacher.TeacherService;
 
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
@@ -51,7 +53,7 @@ public class AssignmentRestResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Response assignSubjectAndKlas(@Valid @NotNull AssignTeacherSubjectAndKlasDto assignTeacherSubjectAndKlasDto) {
+    public Response assignSubjectAndKlasPerTeacher(@Valid @NotNull AssignTeacherSubjectAndKlasDto assignTeacherSubjectAndKlasDto) {
         Long teacherId = assignTeacherSubjectAndKlasDto.getTeacherId();
         Long klasId = assignTeacherSubjectAndKlasDto.getKlasId();
         Long subjectId = assignTeacherSubjectAndKlasDto.getSubjectId();
